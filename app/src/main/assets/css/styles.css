@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav {
+    order: 1;
+    max-width: 200px;
+    flex: auto;
+    background-color: #333;
+    height: 100vh;
+}
+
+main{
+    order: 2;
+    flex: auto;
+    margin: 1.2rem;
+}
+
+nav > ul {
+    list-style-type: none;
+    padding: 0;
+    display: block;
+}
+
+nav > ul > li {
+    padding-left: 14px;
+    margin-left: 6px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+nav > ul > li > a {
+    text-decoration: none;
+    color: darkgray;
+    margin: auto;
+}
+
+#path {
+    height: 5vh;
+}
+
+#path > a {
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.icon {
+    vertical-align: text-bottom;
+}
+
+.app-label {
+    line-height: 60px;
+    vertical-align: text-bottom;
+    font-size: 1.6rem;
+    margin: 8px;
+}
+
+.download {
+    background-color: teal;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    padding: 8px;
+    margin: 8px;
+}
+
+nav > ul > li > a:hover {
+   color: #dedede;
+}
+
+.li-focused {
+    border-left: 6px solid red;
+    margin-left: 0;
+}
+
+.li-focused > a {
+    color: white;
+}
+
+.files {
+    overflow-y: scroll;
+    height: 89vh;
+}
+
+.file {
+    box-shadow: 0.5px 0.5px 0px 0.5px #dddddd;
+    padding: 8px;
+    margin: 8px;
+}
+
+.file > a {
+    text-decoration: none;
+}
+
+.clipboard-text-area {
+    width: 100%;
+    min-height: 200px;
+    min-width: 100%;
+    max-height: 90vh;
+}
+
+.btn-upload {
+    background-color: #0dd;
+    border: 0;
+    padding: 8px;
+    color: white;
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 600px) {
+    nav {
+        max-width: 100%;
+        height: auto;
+    }
+
+    nav > ul > li {
+        display: inline;
+        margin: 0;
+    }
+
+    nav > ul > hr, li > a >.icon {
+        display: none;
+    }
+
+    .li-focused {
+        border: 0;
+    }
+
+    .clipboard-text-area {
+        min-width: 90%;
+    }
+}

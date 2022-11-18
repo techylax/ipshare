@@ -1,0 +1,2 @@
+rootProject.name='IP Share'
+include ':app'

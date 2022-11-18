@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/rate"
+        android:title="@string/rate"
+        android:icon="@drawable/rate_review"/>
+    <item
+        android:id="@+id/feedback"
+        android:title="@string/feedback"
+        android:icon="@drawable/feedback"/>
+    <item
+        android:id="@+id/share"
+        android:title="@string/share"
+        android:icon="@drawable/share"/>
+</menu>
