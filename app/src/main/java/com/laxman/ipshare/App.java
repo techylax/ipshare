@@ -51,7 +51,8 @@ public class App {
 
         if (connectivityManager != null) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+                NetworkCapabilities capabilities = connectivityManager
+                        .getNetworkCapabilities(connectivityManager.getActiveNetwork());
                 if (capabilities == null) {
                     return false;
                 }
@@ -68,12 +69,13 @@ public class App {
         }
         return false;
     }
+
     static boolean isWifiConnected() {
         return wifiConnected;
     }
 
     static void initClipboard(Context context) {
-         clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboardManager == null | Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             clipboard = context.getString(R.string.app_name) + " is not allowed to access your clipboard";
             return;
@@ -84,18 +86,10 @@ public class App {
         clipboardManager.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
             @Override
             public void onPrimaryClipChanged() {
-               setClipboard();
+                setClipboard();
             }
         });
 
-    }
-
-    private static void setClipboard() {
-        if (clipboardManager.hasPrimaryClip() && clipboardManager.getPrimaryClip() != null) {
-            clipboard = String.valueOf(clipboardManager.getPrimaryClip().getItemAt(0).getText());
-        } else {
-            clipboard = "No clipboards found";
-        }
     }
 
     public static void copyToClipboard(Context context, String text) {
@@ -115,23 +109,23 @@ public class App {
         return writePermission == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static String getAppUrl(String packageName){
+    public static String getAppUrl(String packageName) {
         return "http://play.google.com/store/apps/details?id=" + packageName;
     }
 
-    public static void shareApp(Context context, String chooserTitle, String message){
+    public static void shareApp(Context context, String chooserTitle, String message) {
         try {
-            ShareCompat.IntentBuilder.from((AppCompatActivity)context)
+            ShareCompat.IntentBuilder.from((AppCompatActivity) context)
                     .setType("text/plain")
                     .setChooserTitle(chooserTitle)
                     .setText(message)
                     .startChooser();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void openGooglePlay(Context context, String packageName){
+    public static void openGooglePlay(Context context, String packageName) {
         Uri uri = Uri.parse("market://details?id=" + packageName);
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -147,7 +141,7 @@ public class App {
         }
     }
 
-    public static void emailIntent(Context context, String mailto, String subject, String text, String chooserTitle){
+    public static void emailIntent(Context context, String mailto, String subject, String text, String chooserTitle) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + mailto));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, text);
@@ -182,9 +176,9 @@ public class App {
     }
 
     public static File getAppDir(Context context) {
-        File dir = new File(App.externalDir() + "/" + context.getString(R.string.app_name) );
+        File dir = new File(App.externalDir() + "/" + context.getString(R.string.app_name));
         if (!dir.exists()) {
-            //noinspection ResultOfMethodCallIgnored
+            // noinspection ResultOfMethodCallIgnored
 
             dir.mkdir();
         }
@@ -211,7 +205,7 @@ public class App {
         navigationMenus.add(new NavigationMenu("images/upload.png", "File Upload", "file-upload"));
         navigationMenus.add(new NavigationMenu("images/about.png", "About", "about"));
 
-        for (int i=0; i < navigationMenus.size(); i++) {
+        for (int i = 0; i < navigationMenus.size(); i++) {
             NavigationMenu navigationMenu = navigationMenus.get(i);
             String html;
             if (currentPagePath.equals(navigationMenu.getPath())) {
@@ -246,19 +240,18 @@ public class App {
         StringBuilder stringBuilder = new StringBuilder();
         String html;
 
-        if (currentDir.startsWith("/")){
+        if (currentDir.startsWith("/")) {
             currentDir = currentDir.substring(1);
         }
 
-
         String[] parts = currentDir.split("/");
 
-        for (int i=0; i < parts.length; i++) {
+        for (int i = 0; i < parts.length; i++) {
 
             int startIndex = file.getAbsolutePath().indexOf(parts[i]);
-            String path = file.getAbsolutePath().substring(0 , startIndex);
+            String path = file.getAbsolutePath().substring(0, startIndex);
 
-            //Encode URL
+            // Encode URL
             path = URLEncoder.encode(path, "UTF-8");
             parts[i] = URLEncoder.encode(parts[i], "UTF-8");
 
@@ -301,7 +294,7 @@ public class App {
                 }
             }
 
-            //Sorting
+            // Sorting
             Collections.sort(folders);
             Collections.sort(files);
 
@@ -312,17 +305,19 @@ public class App {
                 File file = new File(path);
                 String name = file.getName();
 
-                //Encode URL
+                // Encode URL
                 path = URLEncoder.encode(path, "UTF-8");
 
                 String html;
                 if (file.isDirectory()) {
                     html = "<div class=\"file\">\n" +
-                            "               <a href=\"?dir=" + path + "\"><img class=\"icon\" src=\"images/folder.png\"> " + name + "</a>\n" +
+                            "               <a href=\"?dir=" + path
+                            + "\"><img class=\"icon\" src=\"images/folder.png\"> " + name + "</a>\n" +
                             "            </div>\n";
                 } else {
                     html = "<div class=\"file\">\n" +
-                            "               <a href=\"?file=" + path + "\"><img class=\"icon\" src=\"images/file.png\"> " + name + "</a>\n" +
+                            "               <a href=\"?file=" + path
+                            + "\"><img class=\"icon\" src=\"images/file.png\"> " + name + "</a>\n" +
                             "            </div>\n";
                 }
 
