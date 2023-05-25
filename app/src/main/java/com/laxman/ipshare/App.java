@@ -92,6 +92,15 @@ public class App {
 
     }
 
+    // check if nothing is found in clipboard
+    private static void setClipboard() {
+        if (clipboardManager.hasPrimaryClip() && clipboardManager.getPrimaryClip() != null) {
+            clipboard = String.valueOf(clipboardManager.getPrimaryClip().getItemAt(0).getText());
+        } else {
+            clipboard = "No clipboards found";
+        }
+    }
+
     public static void copyToClipboard(Context context, String text) {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), text);
